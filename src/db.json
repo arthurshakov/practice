@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "title": "Новое дело 345",
+      "completed": true,
+      "id": 3
+    },
+    {
+      "title": "Ещё одно дело",
+      "completed": false,
+      "id": 4
+    },
+    {
+      "title": "И ещё одно дело",
+      "completed": false,
+      "id": 5
+    }
+  ]
+}
