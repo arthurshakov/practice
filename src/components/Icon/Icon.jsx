@@ -1,0 +1,12 @@
+import styled from 'styled-components';
+
+const IconContainer = ({className, id}) => (
+  <div className={className}>
+    <i className={`fa fa-${id}`} aria-hidden="true"></i>
+  </div>
+);
+
+export const Icon = styled(IconContainer)`
+  font-size: ${({fz = '24px'}) => fz};
+  margin: ${({margin = '0'}) => margin};
+`
