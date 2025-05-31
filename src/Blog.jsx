@@ -1,6 +1,17 @@
 import {Routes, Route} from 'react-router-dom';
-
+import { Header } from './components';
 import styled from 'styled-components';
+
+const AppWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 1000px;
+  min-height: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: white;
+`;
 
 const Content = styled.div`
   padding-top: 120px;
@@ -15,17 +26,11 @@ const H2 = styled.h2`
   text-align: center;
 `;
 
-const Header = () => (
-  <header>Header</header>
-)
-
-const Footer = () => (
-  <footer>Footer</footer>
-)
+const Footer = () => <footer>Footer</footer>;
 
 export const Blog = () => {
   return (
-    <>
+    <AppWrapper>
       <Header />
       <Content>
         <Routes>
@@ -41,6 +46,6 @@ export const Blog = () => {
         <H1>Content</H1>
       </Content>
       <Footer />
-    </>
+    </AppWrapper>
   )
 }
