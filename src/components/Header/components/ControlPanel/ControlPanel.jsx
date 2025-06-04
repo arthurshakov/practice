@@ -1,10 +1,15 @@
 import styled from 'styled-components';
-import { Icon } from '../../..';
+import { Icon, Button } from '../../..';
 import { Link, useNavigate } from 'react-router-dom';
+import { ROLE } from '../../../../constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUserRole, selectUserLogin, selectUserSession } from '../../../../selectors';
+import { logout } from '../../../../actions';
 
 const RightAligned = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 `;
 
 const StyledLink = styled(Link)`
@@ -18,23 +23,41 @@ const StyledLink = styled(Link)`
   height: 32px;
 `;
 
-const BackwardIcon = styled.div`
-  // &:hover {
-  //   cursor: pointer;
-  // }
+const StyledIcon = styled.div`
   cursor: pointer;
-`
+`;
+
+const UserName = styled.div`
+  font-size: 18px;
+  font-weight: 600;
+`;
 
 const ControlPanelLayout = ({className}) => {
   const navigate = useNavigate();
+  const roleId = useSelector(selectUserRole);
+  const login = useSelector(selectUserLogin);
+  const session = useSelector(selectUserSession);
+  const dispatch = useDispatch();
 
   return (
     <div className={className}>
       <RightAligned>
-        <StyledLink to="/login">Войти</StyledLink>
+        {
+          roleId === ROLE.GUEST ?
+          <Button>
+            <Link to="/login">Войти</Link>
+          </Button>
+            :
+          <>
+            <UserName>{login}</UserName>
+            <StyledIcon onClick={() => dispatch(logout(session))}>
+              <Icon id="sign-out" margin="0 0 0 12px" />
+            </StyledIcon>
+          </>
+        }
       </RightAligned>
       <RightAligned>
-        <BackwardIcon onClick={() => navigate(-1)}><Icon id="backward" margin="10px 15px 0 0" /></BackwardIcon>
+        <StyledIcon onClick={() => navigate(-1)}><Icon id="backward" margin="10px 15px 0 0" /></StyledIcon>
         <Link to="/post"><Icon id="file-text-o" margin="10px 15px 0 0" /></Link>
         <Link to="/users"><Icon id="users" margin="10px 0 0 0" /></Link>
       </RightAligned>
