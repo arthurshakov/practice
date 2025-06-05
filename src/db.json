@@ -6,6 +6,27 @@
       "password": "qwerty123",
       "registered_at": "2050-09-22",
       "role_id": 0
+    },
+    {
+      "login": "ivan",
+      "password": "qwerty123",
+      "registered_at": "2025-06-05 18:06",
+      "role_id": 2,
+      "id": "KHiYMfv"
+    },
+    {
+      "login": "ivan2",
+      "password": "qwerty123",
+      "registered_at": "2025-06-05 18:12",
+      "role_id": 2,
+      "id": "J1fInzK"
+    },
+    {
+      "login": "ivan3",
+      "password": "qwerty123",
+      "registered_at": "2025-06-05 18:30",
+      "role_id": 2,
+      "id": "ho6ZygP"
     }
   ],
   "roles": [
