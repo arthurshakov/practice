@@ -23,10 +23,6 @@ const StyledLink = styled(Link)`
   height: 32px;
 `;
 
-const StyledIcon = styled.div`
-  cursor: pointer;
-`;
-
 const UserName = styled.div`
   font-size: 18px;
   font-weight: 600;
@@ -50,14 +46,12 @@ const ControlPanelLayout = ({className}) => {
             :
           <>
             <UserName>{login}</UserName>
-            <StyledIcon onClick={() => dispatch(logout(session))}>
-              <Icon id="sign-out" margin="0 0 0 12px" />
-            </StyledIcon>
+            <Icon id="sign-out" margin="0 0 0 12px" onClick={() => dispatch(logout(session))} />
           </>
         }
       </RightAligned>
       <RightAligned>
-        <StyledIcon onClick={() => navigate(-1)}><Icon id="backward" margin="10px 15px 0 0" /></StyledIcon>
+        <Icon id="backward" margin="10px 15px 0 0" onClick={() => navigate(-1)} />
         <Link to="/post"><Icon id="file-text-o" margin="10px 15px 0 0" /></Link>
         <Link to="/users"><Icon id="users" margin="10px 0 0 0" /></Link>
       </RightAligned>

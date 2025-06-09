@@ -11,15 +11,8 @@
       "login": "ivan",
       "password": "qwerty123",
       "registered_at": "2025-06-05 18:06",
-      "role_id": 2,
+      "role_id": 1,
       "id": "KHiYMfv"
-    },
-    {
-      "login": "ivan2",
-      "password": "qwerty123",
-      "registered_at": "2025-06-05 18:12",
-      "role_id": 2,
-      "id": "J1fInzK"
     },
     {
       "login": "ivan3",
