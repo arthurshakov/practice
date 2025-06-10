@@ -1,31 +1,35 @@
 import styled from "styled-components";
 import { H1, Icon } from "../../../../components";
+import { SpecialPanel } from "../special-panel/special-panel";
+import { useNavigate } from "react-router-dom";
 
 const PostContentLayout = ({
   className,
   post: {
-    // id,
+    id,
     title,
     imageUrl,
     content,
     publishedAt,
   },
 }) => {
+  const navigate = useNavigate();
+
   return (
     <div className={className}>
       <img src={imageUrl || ' '} alt={title} />
       <H1>{title}</H1>
 
-      <div className="special-panel">
-        <div className="published-at">
-          <Icon id="calendar-o" margin="0 10px 0 0" fz="18px" /> {publishedAt}
-        </div>
-        <div className="buttons">
-          <Icon id="pencil-square-o" margin="0 10px 0 0" fz="24px" onClick={() => console.log('clicked')} />
-          <Icon id="trash-o" fz="24px" onClick={() => console.log('clicked')} />
-        </div>
-      </div>
-      <div>{content}</div>
+      <SpecialPanel publishedAt={publishedAt} editButton={
+        <Icon
+          id="pencil-square-o"
+          margin="0 10px 0 0"
+          fz="24px"
+          onClick={() => navigate(`/post/${id}/edit`)}
+        />
+      } />
+
+      <div className="content">{content}</div>
     </div>
   );
 }
@@ -35,25 +39,11 @@ export const PostContent = styled(PostContentLayout)`
     float: left;
     margin-right: 30px;
     margin-bottom: 20px;
+    width: 280px;
+    height: 150px;
   }
 
-  .special-panel {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-
-  .published-at,
-  .buttons {
-    display: flex;
-    align-items: center;
-  }
-
-  .published-at {
-    div {
-      cursor: default;
-    }
+  .content {
+    white-space: pre-line;
   }
 `;
