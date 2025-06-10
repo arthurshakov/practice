@@ -102,30 +102,9 @@
     {
       "author_id": "001",
       "post_id": "001",
-      "published_at": "2025-06-09 17:18",
-      "content": "New comment",
-      "id": 1
-    },
-    {
-      "author_id": "001",
-      "post_id": "001",
-      "published_at": "2025-06-09 17:19",
-      "content": "Another comment\n",
-      "id": 2
-    },
-    {
-      "author_id": "001",
-      "post_id": "001",
-      "published_at": "2025-06-09 17:19",
-      "content": "One more comment\n",
+      "published_at": "2025-06-10 07:28",
+      "content": "comment c",
       "id": 3
-    },
-    {
-      "author_id": "001",
-      "post_id": "001",
-      "published_at": "2025-06-09 18:06",
-      "content": "The fourth comment\n",
-      "id": 4
     }
   ],
   "sessions": [
@@ -150,6 +129,17 @@
         "roleId": 0
       },
       "id": 2
+    },
+    {
+      "hash": "0.22380203244675467288971049129031598567962646484375",
+      "user": {
+        "id": "001",
+        "login": "anton",
+        "password": "qwerty123",
+        "registeredAt": "2050-09-22",
+        "roleId": 0
+      },
+      "id": 3
     }
   ]
 }
