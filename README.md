@@ -30,7 +30,7 @@
 - Пользователи - users: id / login / password / registered_at / role-id
 - Роли - roles: id / name
 - Статьи - posts: id / title / image_url / content / published_at
-- Комментарии - comments: id / author_id / post_id / content
+- Комментарии - comments: id / author_id / post_id / content / published_at
 
 ### Схема состояния на BFF
 

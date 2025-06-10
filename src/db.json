@@ -98,5 +98,58 @@
       "published_at": "2030-01-15"
     }
   ],
-  "comment": []
+  "comments": [
+    {
+      "author_id": "001",
+      "post_id": "001",
+      "published_at": "2025-06-09 17:18",
+      "content": "New comment",
+      "id": 1
+    },
+    {
+      "author_id": "001",
+      "post_id": "001",
+      "published_at": "2025-06-09 17:19",
+      "content": "Another comment\n",
+      "id": 2
+    },
+    {
+      "author_id": "001",
+      "post_id": "001",
+      "published_at": "2025-06-09 17:19",
+      "content": "One more comment\n",
+      "id": 3
+    },
+    {
+      "author_id": "001",
+      "post_id": "001",
+      "published_at": "2025-06-09 18:06",
+      "content": "The fourth comment\n",
+      "id": 4
+    }
+  ],
+  "sessions": [
+    {
+      "hash": "0.86715347347210525175142947773565538227558135986328",
+      "user": {
+        "id": "001",
+        "login": "anton",
+        "password": "qwerty123",
+        "registeredAt": "2050-09-22",
+        "roleId": 0
+      },
+      "id": 1
+    },
+    {
+      "hash": "0.92933539489548822043474274323671124875545501708984",
+      "user": {
+        "id": "001",
+        "login": "anton",
+        "password": "qwerty123",
+        "registeredAt": "2050-09-22",
+        "roleId": 0
+      },
+      "id": 2
+    }
+  ]
 }
