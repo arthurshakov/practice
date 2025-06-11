@@ -29,3 +29,10 @@ a {
   text-decoration: none;
   color: currentColor;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: 100%;
+  width: 100%;
+  gap: 10px;
+}

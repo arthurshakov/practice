@@ -20,10 +20,9 @@ const PostContentLayout = ({
       <img src={imageUrl || ' '} alt={title} />
       <H1>{title}</H1>
 
-      <SpecialPanel publishedAt={publishedAt} editButton={
+      <SpecialPanel id={id} publishedAt={publishedAt} editButton={
         <Icon
           id="pencil-square-o"
-          margin="0 10px 0 0"
           fz="24px"
           onClick={() => navigate(`/post/${id}/edit`)}
         />

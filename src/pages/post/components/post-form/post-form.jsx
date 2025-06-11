@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { Icon, Input } from "../../../../components";
 import { SpecialPanel } from "../special-panel/special-panel";
 import { sanitizeContent } from "./utils";
@@ -18,36 +18,45 @@ const PostFormLayout = ({
     publishedAt,
   },
 }) => {
-  const imageRef = useRef(null);
-  const titleRef = useRef(null);
+  const [imageUrlValue, setImageUrlValue] = useState(imageUrl);
+  const [titleValue, setTitleValue] = useState(title);
   const contentRef = useRef(null);
+
+  useLayoutEffect(() => {
+    setImageUrlValue(imageUrl);
+    setTitleValue(title);
+  }, [title, imageUrl]);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const requestServer = useServerRequest();
 
   const onSave = () => {
-    const newImageUrl = imageRef.current.value;
-    const newTitle = titleRef.current.value;
     const newContent = sanitizeContent(contentRef.current.innerHTML);
 
     dispatch(savePostAsync(requestServer, {
       id,
-      imageUrl: newImageUrl,
-      title: newTitle,
+      imageUrl: imageUrlValue,
+      title: titleValue,
       content: newContent,
     }))
-      .then(() => navigate(`/post/${id}`))
+      .then(({id}) => navigate(`/post/${id}`))
     ;
   };
 
+  const onImageUrlChange = ({target}) => setImageUrlValue(target.value);
+  const onTitleChange = ({target}) => setTitleValue(target.value);
+
   return (
     <div className={className}>
-      <Input ref={imageRef} defaultValue={imageUrl} placeholder="Изображение" />
+      <div className="grid">
+        <Input value={imageUrlValue} onChange={onImageUrlChange} placeholder="Изображение..." />
 
-      <Input ref={titleRef} defaultValue={title} placeholder="Заголовок" />
+        <Input value={titleValue} onChange={onTitleChange}  placeholder="Заголовок..." />
+      </div>
 
-      <SpecialPanel publishedAt={publishedAt} editButton={
-        <Icon id="floppy-o" margin="0 10px 0 0" fz="24px" onClick={() => onSave()} />
+      <SpecialPanel id={id} publishedAt={publishedAt} editButton={
+        <Icon id="floppy-o" fz="24px" onClick={() => onSave()} />
       } />
 
       <div
@@ -71,5 +80,8 @@ export const PostForm = styled(PostFormLayout)`
 
   .content {
     white-space: pre-line;
+    border: 1px solid black;
+    border-radius: 5px;
+    min-height: 80px;
   }
 `;

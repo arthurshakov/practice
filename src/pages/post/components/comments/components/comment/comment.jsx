@@ -24,10 +24,10 @@ const CommentLayout = ({className, id, postId, author, publishedAt, content}) =>
       <div className="comment">
         <div className="information-panel">
           <div className="author">
-            <Icon id="user-circle-o" fz="20px" /> {author}
+            <Icon id="user-circle-o" fz="20px" inactive={true} /> {author}
           </div>
           <div className="published-at">
-            <Icon id="calendar-o" fz="20px" margin="0 10px 0 0" /> {publishedAt}
+            <Icon id="calendar-o" fz="20px" margin="0 10px 0 0" inactive={true} /> {publishedAt}
           </div>
         </div>
         <div className="comment-text">{content}</div>

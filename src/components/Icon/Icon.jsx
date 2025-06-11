@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-const IconContainer = ({className, id, ...props}) => (
+// eslint-disable-next-line
+const IconContainer = ({className, id, inactive, ...props}) => (
   <div className={className} {...props}>
     <i className={`fa fa-${id}`} aria-hidden="true"></i>
   </div>
@@ -12,6 +13,6 @@ export const Icon = styled(IconContainer)`
   color: ${({disabled}) => disabled ? '#ccc' : 'currentColor'};
 
   &:hover {
-    cursor: pointer;
+    cursor: ${({inactive}) => inactive ? 'default' : 'pointer'};
   }
 `
