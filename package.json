@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier --write ./src",
-    "json-server": "json-server --watch ./src/db.json --port 3005"
+    "server": "json-server --watch ./src/db.json --port 3005"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",

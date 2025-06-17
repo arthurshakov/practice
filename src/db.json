@@ -133,6 +133,13 @@
       "published_at": "2025-06-10 07:28",
       "content": "comment c",
       "id": 3
+    },
+    {
+      "author_id": "001",
+      "post_id": "001",
+      "published_at": "2025-06-17 17:10",
+      "content": "Comment A",
+      "id": 4
     }
   ],
   "sessions": [
@@ -212,6 +219,17 @@
         "roleId": 0
       },
       "id": 7
+    },
+    {
+      "hash": "0.11509189826610533025075255864067003130912780761719",
+      "user": {
+        "id": "001",
+        "login": "anton",
+        "password": "qwerty123",
+        "registeredAt": "2050-09-22",
+        "roleId": 0
+      },
+      "id": 8
     }
   ]
 }
