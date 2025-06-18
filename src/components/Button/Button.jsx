@@ -17,7 +17,7 @@ export const Button = styled(ButtonLayout)`
   min-width: 100px;
   height: 32px;
 
-  &:hover {
+  &:hover:not([disabled]) {
     cursor: pointer;
   }
 `;
