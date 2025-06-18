@@ -1,41 +1,58 @@
 import styled from "styled-components";
 import { useServerRequest } from "../../hooks";
-import { useState, useEffect } from "react";
-import { PostCard, Pagination } from "./components";
+import { useState, useEffect, useMemo } from "react";
+import { PostCard, Pagination, Search } from "./components";
 import { PAGINATION_LIMIT } from "../../constants";
-import { getLastPageFromLinks } from "./utils";
+import { getLastPageFromLinks, debounce } from "./utils";
 
 const MainLayout = ({className}) => {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
+  const [shouldSearch, setShouldSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const requestServer = useServerRequest();
 
   useEffect(() => {
-    requestServer('fetchPosts', page, PAGINATION_LIMIT)
+    requestServer('fetchPosts', searchQuery, page, PAGINATION_LIMIT)
       .then(({res: {posts, links}}) => {
         setPosts(posts);
         setLastPage(getLastPageFromLinks(links));
       })
     ;
-  }, [requestServer, page]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [requestServer, page, shouldSearch]);
+
+  const startDebouncedSearch = useMemo(() => debounce(setShouldSearch, 2000), []);
+
+  const onSearch = ({target}) => {
+    setSearchQuery(target.value);
+    startDebouncedSearch(!shouldSearch);
+  };
 
   return (
     <div className={className}>
-      <div className="post-list">
-        {
-          posts.map(({id, title, imageUrl, publishedAt, commentsCount}) => (
-            <PostCard
-            key={id}
-            id={id}
-            title={title}
-            imageUrl={imageUrl}
-            publishedAt={publishedAt}
-            commentsCount={commentsCount}
-            />
-          ))
-        }
-      </div>
+      <Search onChange={onSearch} searchQuery={searchQuery} />
+      {
+        posts.length ? (<div className="post-list">
+          {
+            posts.map(({id, title, imageUrl, publishedAt, commentsCount}) => (
+              <PostCard
+              key={id}
+              id={id}
+              title={title}
+              imageUrl={imageUrl}
+              publishedAt={publishedAt}
+              commentsCount={commentsCount}
+              />
+            ))
+          }
+        </div>)
+
+        :
+
+        (<div className="no-posts-found">Статьи не найдены</div>)
+      }
       {
         lastPage > 1 && (
           <Pagination
@@ -60,5 +77,11 @@ export const Main = styled(MainLayout)`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
+  }
+
+  .no-posts-found {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
   }
 `;
