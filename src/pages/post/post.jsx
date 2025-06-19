@@ -1,6 +1,7 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PostContent, Comments, PostForm } from "./components";
+import { Error } from "../../components";
 import styled from "styled-components";
 import { useMatch, useParams } from "react-router-dom";
 import { useServerRequest } from "../../hooks";
@@ -8,6 +9,8 @@ import { loadPostAsync, RESET_POST_DATA } from "../../actions";
 import { selectPost } from "../../selectors";
 
 const PostLayout = ({className}) => {
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const post = useSelector(selectPost);
   const dispatch = useDispatch();
   const params = useParams();
@@ -21,13 +24,25 @@ const PostLayout = ({className}) => {
 
   useEffect(() => {
     if (isCreating) {
+      setIsLoading(false);
       return;
     }
 
-    dispatch(loadPostAsync(requestServer, params.id));
+    dispatch(loadPostAsync(requestServer, params.id))
+      .then(postData => {
+        setError(postData.error)
+        setIsLoading(false);
+      })
+    ;
   }, [requestServer, dispatch, params.id, isCreating]);
 
+  if (isLoading) {
+    return null;
+  }
+
   return (
+    error ? <Error errorMessage={error} />
+    :
     <div className={className}>
       {
         isCreating || isEditing ?

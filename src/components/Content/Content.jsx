@@ -1,28 +1,4 @@
-import { H1 } from "../H1/H1";
-import styled from "styled-components";
+import { Error } from "../Error/Error";
 
-const StyledError = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-right: auto;
-  margin-left: auto;
-`;
-
-export const Content = ({children, errorMessage}) => {
-  return (
-    <>
-      {
-        errorMessage ?
-          <StyledError>
-            <H1>Ошибка</H1>
-            <div>{errorMessage}</div>
-          </StyledError>
-
-          :
-
-          children
-      }
-    </>
-  );
-}
+export const Content = ({children, errorMessage}) =>
+  errorMessage ? <Error errorMessage={errorMessage} /> : children;
