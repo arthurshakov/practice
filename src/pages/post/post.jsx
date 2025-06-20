@@ -1,12 +1,13 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PostContent, Comments, PostForm } from "./components";
-import { Error } from "../../components";
+import { Error, PrivateContent } from "../../components";
 import styled from "styled-components";
 import { useMatch, useParams } from "react-router-dom";
 import { useServerRequest } from "../../hooks";
 import { loadPostAsync, RESET_POST_DATA } from "../../actions";
 import { selectPost } from "../../selectors";
+import { ROLE } from "../../constants";
 
 const PostLayout = ({className}) => {
   const [error, setError] = useState(null);
@@ -14,8 +15,8 @@ const PostLayout = ({className}) => {
   const post = useSelector(selectPost);
   const dispatch = useDispatch();
   const params = useParams();
-  const isCreating = useMatch('/post');
-  const isEditing = useMatch('/post/:id/edit');
+  const isCreating = !!useMatch('/post');
+  const isEditing = !!useMatch('/post/:id/edit');
   const requestServer = useServerRequest();
 
   useLayoutEffect(() => {
@@ -40,20 +41,22 @@ const PostLayout = ({className}) => {
     return null;
   }
 
-  return (
-    error ? <Error errorMessage={error} />
-    :
-    <div className={className}>
-      {
-        isCreating || isEditing ?
+  const SpecificPostPage = () => {
+    return isCreating || isEditing ?
+      <PrivateContent access={[ROLE.ADMIN]} serverError={error}>
+        <div className={className}>
           <PostForm post={post} />
-          :
-        <>
-          <PostContent post={post} />
-          <Comments comments={post.comments} postId={post.id} />
-        </>
-      }
-    </div>
+        </div>
+      </PrivateContent>
+      :
+      <div className={className}>
+        <PostContent post={post} />
+        <Comments comments={post.comments} postId={post.id} />
+      </div>
+  };
+
+  return (
+    error ? <Error errorMessage={error} /> : <SpecificPostPage />
   )
 }
 
