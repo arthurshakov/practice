@@ -1,12 +1,15 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Icon } from "../../../../../../components";
 import styled from "styled-components";
 import { useServerRequest } from "../../../../../../hooks";
 import { openModal, CLOSE_MODAL, removeCommentAsync } from "../../../../../../actions";
+import { ROLE } from "../../../../../../constants";
+import { selectUserRole } from "../../../../../../selectors";
 
 const CommentLayout = ({className, id, postId, author, publishedAt, content}) => {
   const dispatch = useDispatch();
   const requestServer = useServerRequest();
+  const userRole = useSelector(selectUserRole);
 
   const onCommentRemove = (id) => {
     dispatch(openModal({
@@ -19,12 +22,14 @@ const CommentLayout = ({className, id, postId, author, publishedAt, content}) =>
     }));
   };
 
+  const isAdminOrModerator = [ROLE.ADMIN, ROLE.MODERATOR].includes(userRole);
+
   return (
     <div className={className}>
       <div className="comment">
         <div className="information-panel">
           <div className="author">
-            <Icon id="user-circle-o" fz="20px" inactive={true} /> {author}
+            <Icon id="user-circle-o" margin="0 5px 0 0" fz="20px" inactive={true} /> {author}
           </div>
           <div className="published-at">
             <Icon id="calendar-o" fz="20px" margin="0 10px 0 0" inactive={true} /> {publishedAt}
@@ -32,7 +37,7 @@ const CommentLayout = ({className, id, postId, author, publishedAt, content}) =>
         </div>
         <div className="comment-text">{content}</div>
       </div>
-      <Icon id="trash-o" margin="0 0 0 10px" onClick={() => onCommentRemove(id)} />
+      {isAdminOrModerator && <Icon id="trash-o" margin="0 0 0 10px" onClick={() => onCommentRemove(id)} />}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { ROLE } from '../../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUserRole, selectUserLogin, selectUserSession } from '../../../../selectors';
 import { logout } from '../../../../actions';
+import { checkAccess } from '../../../../utils';
 
 const RightAligned = styled.div`
   display: flex;
@@ -40,6 +41,8 @@ const ControlPanelLayout = ({className}) => {
     sessionStorage.removeItem('userData');
   }
 
+  const isAdmin = checkAccess([ROLE.ADMIN], roleId);
+
   return (
     <div className={className}>
       <RightAligned>
@@ -56,9 +59,15 @@ const ControlPanelLayout = ({className}) => {
         }
       </RightAligned>
       <RightAligned>
-        <Icon id="backward" margin="10px 15px 0 0" onClick={() => navigate(-1)} />
-        <Link to="/post"><Icon id="file-text-o" margin="10px 15px 0 0" /></Link>
-        <Link to="/users"><Icon id="users" margin="10px 0 0 0" /></Link>
+        <Icon id="backward" margin="10px 0 0 15px" onClick={() => navigate(-1)} />
+        {
+          isAdmin && (
+            <>
+              <Link to="/post"><Icon id="file-text-o" margin="10px 0 0 15px" /></Link>
+              <Link to="/users"><Icon id="users" margin="10px 0 0 15px" /></Link>
+            </>
+          )
+        }
       </RightAligned>
     </div>
   );

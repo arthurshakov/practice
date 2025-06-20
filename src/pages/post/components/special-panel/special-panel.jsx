@@ -1,26 +1,32 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Icon } from "../../../../components";
 import { openModal, CLOSE_MODAL, removePostAsync } from "../../../../actions";
 import styled from "styled-components";
 import { useServerRequest } from "../../../../hooks";
 import { useNavigate } from "react-router-dom";
+import { checkAccess } from "../../../../utils";
+import { ROLE } from "../../../../constants";
+import { selectUserRole } from "../../../../selectors";
 
 const SpecialPanelLayout = ({className, id, publishedAt, editButton}) => {
   const dispatch = useDispatch();
   const requestServer = useServerRequest();
   const navigate = useNavigate();
+  const userRole = useSelector(selectUserRole);
 
   const onPostRemove = (postId) => {
-      dispatch(openModal({
-        text: 'Удалить комментарий?',
-        onConfirm: () => {
-          dispatch(removePostAsync(requestServer, postId))
-            .then(() => navigate('/'));
-          dispatch(CLOSE_MODAL);
-        },
-        onCancel: () => dispatch(CLOSE_MODAL),
-      }));
-    };
+    dispatch(openModal({
+      text: 'Удалить комментарий?',
+      onConfirm: () => {
+        dispatch(removePostAsync(requestServer, postId))
+          .then(() => navigate('/'));
+        dispatch(CLOSE_MODAL);
+      },
+      onCancel: () => dispatch(CLOSE_MODAL),
+    }));
+  };
+
+  const isAdmin = checkAccess([ROLE.ADMIN], userRole);
 
   return (
     <div className={className}>
@@ -32,10 +38,13 @@ const SpecialPanelLayout = ({className, id, publishedAt, editButton}) => {
           </>
         }
       </div>
-      <div className="buttons">
-        { editButton }
-        {publishedAt && <Icon id="trash-o" fz="24px" margin="0 0 0 10px" onClick={() => onPostRemove(id)} /> }
-      </div>
+      {
+        isAdmin &&
+        <div className="buttons">
+          { editButton }
+          {publishedAt && <Icon id="trash-o" fz="24px" margin="0 0 0 10px" onClick={() => onPostRemove(id)} /> }
+        </div>
+      }
     </div>
   );
 }
