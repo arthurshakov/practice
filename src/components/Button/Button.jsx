@@ -1,5 +1,7 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
+// eslint-disable-next-line no-unused-vars
 const ButtonLayout = ({className, width, children, ...props}) => {
 	return (
     <button className={className} {...props}>{children}</button>
@@ -21,3 +23,8 @@ export const Button = styled(ButtonLayout)`
     cursor: pointer;
   }
 `;
+
+Button.propTypes = {
+  children: PropTypes.node.isRequired,
+  width: PropTypes.string,
+}

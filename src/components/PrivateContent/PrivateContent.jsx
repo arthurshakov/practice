@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 import { Error } from "../Error/Error";
 import { selectUserRole } from "../../selectors";
-import { ERROR } from "../../constants";
+import { ERROR, PROP_TYPE } from "../../constants";
 import { checkAccess } from "../../utils";
+import PropTypes from "prop-types";
 
 export const PrivateContent = ({children, access, serverError}) => {
   const userRole = useSelector(selectUserRole);
@@ -12,4 +13,10 @@ export const PrivateContent = ({children, access, serverError}) => {
   const errorMessage = serverError || accessError;
 
   return errorMessage ? <Error errorMessage={errorMessage} /> : children;
+}
+
+PrivateContent.propTypes = {
+  children: PropTypes.node.isRequired,
+  access: PropTypes.arrayOf(PROP_TYPE.ROLE_ID).isRequired,
+  serverError: PROP_TYPE.ERROR,
 }

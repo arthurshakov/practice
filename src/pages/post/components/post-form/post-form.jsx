@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { savePostAsync } from "../../../../actions";
 import { useNavigate } from "react-router";
 import { useServerRequest } from '../../../../hooks';
+import { PROP_TYPE } from "../../../../constants";
 
 const PostFormLayout = ({
   className,
@@ -85,3 +86,7 @@ export const PostForm = styled(PostFormLayout)`
     min-height: 80px;
   }
 `;
+
+PostForm.propTypes = {
+  post: PROP_TYPE.POST.isRequired,
+}

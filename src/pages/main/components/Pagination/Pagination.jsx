@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Button } from "../../../../components";
 import styled from "styled-components";
 
@@ -28,3 +29,9 @@ export const Pagination = styled(PaginationLayout)`
     justify-content: center;
   }
 `;
+
+Pagination.propTypes = {
+  page: PropTypes.number.isRequired,
+  setPage: PropTypes.number.isRequired,
+  lastPage: PropTypes.func.isRequired,
+};

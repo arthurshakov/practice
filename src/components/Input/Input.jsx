@@ -1,6 +1,8 @@
+import PropTypes from "prop-types";
 import { forwardRef } from "react";
 import styled from "styled-components";
 
+// eslint-disable-next-line no-unused-vars
 const InputLayout = forwardRef(({className, width, ...props}, ref) => {
 	return (
     <input className={className} {...props} ref={ref} />
@@ -15,3 +17,7 @@ export const Input = styled(InputLayout)`
   border-radius: 3px;
   padding: 10px;
 `;
+
+Input.propTypes = {
+  width: PropTypes.string,
+};

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Icon } from "../../../../components";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const PostCardLayout = ({className, id, title, imageUrl, publishedAt, commentsCount}) => {
   return (
@@ -57,3 +58,11 @@ export const PostCard = styled(PostCardLayout)`
     gap: 7px;
   }
 `;
+
+PostCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
+  publishedAt: PropTypes.string.isRequired,
+  commentsCount: PropTypes.number.isRequired,
+};

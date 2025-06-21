@@ -5,6 +5,7 @@ import { useServerRequest } from "../../../../../../hooks";
 import { openModal, CLOSE_MODAL, removeCommentAsync } from "../../../../../../actions";
 import { ROLE } from "../../../../../../constants";
 import { selectUserRole } from "../../../../../../selectors";
+import PropTypes from "prop-types";
 
 const CommentLayout = ({className, id, postId, author, publishedAt, content}) => {
   const dispatch = useDispatch();
@@ -68,3 +69,11 @@ export const Comment = styled(CommentLayout)`
     align-items: center;
   }
 `;
+
+Comment.propTypes = {
+  id: PropTypes.number.isRequired,
+  postId: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  publishedAt: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+}

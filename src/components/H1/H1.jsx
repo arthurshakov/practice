@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const H1Layout = ({className, children, ...props}) => {
@@ -10,3 +11,7 @@ export const H1 = styled(H1Layout)`
   font-size: 40px;
   margin: 0;
 `;
+
+H1.propTypes = {
+  children: PropTypes.node.isRequired,
+}
